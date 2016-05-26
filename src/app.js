@@ -442,9 +442,9 @@ var run = function() {
 	}
 
 
-	$filesWrapper = $('.files-wrapper');
-	$scrollerRight = $('.scroller-right');
-	$scrollerLeft = $('.scroller-left');
+	var $filesWrapper = $('.files-wrapper');
+	var $scrollerRight = $('.scroller-right');
+	var $scrollerLeft = $('.scroller-left');
 
 	function widthOfList (){
 		var itemsWidth = 0;
@@ -718,6 +718,7 @@ var run = function() {
 		}
 		var importRegex = /^\s*import\s*[\'\"]([^\'\"]+)[\'\"];/g;
 		var reloop = false;
+		var githubMatch;
 		do {
 			reloop = false;
 			for (var fileName in files) {
@@ -932,7 +933,7 @@ var run = function() {
 			}});
 		var $contractOutput = dapp.render();
 
-		$txOrigin = $('#txorigin');
+		var $txOrigin = $('#txorigin');
 		function renderAccounts(err, accounts) {
 			if (err)
 				renderError(err.message);
@@ -994,13 +995,14 @@ var run = function() {
 	var formatGasEstimates = function(data) {
 		var gasToText = function(g) { return g === null ? 'unknown' : g; };
 		var text = '';
+		var fun;
 		if ('creation' in data)
 			text += 'Creation: ' + gasToText(data.creation[0]) + ' + ' + gasToText(data.creation[1]) + '\n';
 		text += 'External:\n';
-		for (var fun in data.external)
+		for (fun in data.external)
 			text += '  ' + fun + ': ' + gasToText(data.external[fun]) + '\n';
 		text += 'Internal:\n';
-		for (var fun in data.internal)
+		for (fun in data.internal)
 			text += '  ' + fun + ': ' + gasToText(data.internal[fun]) + '\n';
 		return text;
 	};

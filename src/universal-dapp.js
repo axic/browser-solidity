@@ -99,7 +99,7 @@ UniversalDApp.prototype.render = function () {
             this.$el.append(this.renderOutputModifier(this.contracts[c].name, $contractEl));
         }
     }
-    $legend = $('<div class="legend" />')
+    var $legend = $('<div class="legend" />')
         .append( $('<div class="attach"/>').text('Attach') )
         .append( $('<div class="transact"/>').text('Transact') )
         .append( $('<div class="call"/>').text('Call') );
@@ -185,13 +185,13 @@ UniversalDApp.prototype.getInstanceInterface = function (contract, address, $tar
             $instance.toggleClass('hide');
         });
 
-        $events = $('<div class="events"/>');
+        var $events = $('<div class="events"/>');
 
         var parseLogs = function(err,response) {
             if (err)
                 return;
 
-            $event = $('<div class="event" />');
+            var $event = $('<div class="event" />');
 
             var $close = $('<div class="udapp-close" />');
             $close.click( function(){ $event.remove(); } );
@@ -565,8 +565,9 @@ UniversalDApp.prototype.runTx = function( data, args, cb) {
         }
     }
 
+    var tx;
     if (!this.vm) {
-        var tx = {
+        tx = {
             from: self.options.getAddress ? self.options.getAddress() : web3.eth.accounts[0],
             to: to,
             data: data,
@@ -586,7 +587,7 @@ UniversalDApp.prototype.runTx = function( data, args, cb) {
         try {
             var address = this.options.getAddress ? this.options.getAddress() : this.getAccounts()[0];
             var account = this.accounts[address];
-            var tx = new EthJSTX({
+            tx = new EthJSTX({
                 nonce: new Buffer([account.nonce++]), //@todo count beyond 255
                 gasPrice: 1,
                 gasLimit: 3000000000, //plenty
