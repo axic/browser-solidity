@@ -168,7 +168,6 @@ UniversalDApp.prototype.getInstanceInterface = function (contract, address, $tar
         if (a.constant == true) return -1;
         else return 1;
     });
-    var web3contract = this.web3.eth.contract(abi);
     var funABI = this.getConstructorInterface(abi);
     var $createInterface = $('<div class="createContract"/>');
 
@@ -237,7 +236,7 @@ UniversalDApp.prototype.getInstanceInterface = function (contract, address, $tar
                 }
             });
         } else {
-            var eventFilter = web3contract.at(address).allEvents();
+            var eventFilter = this.web3.eth.contract(abi).at(address).allEvents();
             eventFilter.watch(parseLogs);
         }
         $instance.append( $title );
